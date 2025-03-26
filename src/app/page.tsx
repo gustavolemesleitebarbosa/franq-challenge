@@ -3,7 +3,6 @@
 import { Currency, FinanceAPIResponse, Stock } from "@/types/finance";
 import { useEffect, useState } from "react";
 
-
 export default function DashboardPage() {
   const [currencies, setCurrencies] = useState<Currency[]>([]);
   const [stocks, setStocks] = useState<Stock[]>([]);
@@ -19,11 +18,13 @@ export default function DashboardPage() {
         if (!response.ok) {
           throw new Error(`Falha na requisição: ${response.status}`);
         }
-        const data = await response.json() as FinanceAPIResponse;
+        const data = (await response.json()) as FinanceAPIResponse;
         const fetchedCurrencies = data?.results?.currencies ?? {};
         const fetchedStocks = data?.results?.stocks ?? {};
-        const currencyEntries: [string, Currency][] = Object.entries(fetchedCurrencies)
-        const selectedCurrencies = currencyEntries?.slice(1, 6)
+        const currencyEntries: [string, Currency][] =
+          Object.entries(fetchedCurrencies);
+        const selectedCurrencies = currencyEntries
+          ?.slice(1, 6)
           .map(([symbol, info]) => ({
             name: `${symbol} (${info.name})`,
             buy: info.buy,
@@ -31,19 +32,20 @@ export default function DashboardPage() {
             variation: info.variation,
           }));
 
-        const stockEntries: Stock[] = Object.values(fetchedStocks)
-        const selectedStocks = stockEntries?.slice(0, 5)
-          .map((stock) => ({
-            name: stock.name,
-            location: stock.location,
-            points: stock.points,
-            variation: stock.variation,
-          }));
+        const stockEntries: Stock[] = Object.values(fetchedStocks);
+        const selectedStocks = stockEntries?.slice(0, 5).map((stock) => ({
+          name: stock.name,
+          location: stock.location,
+          points: stock.points,
+          variation: stock.variation,
+        }));
         setCurrencies(selectedCurrencies);
         setStocks(selectedStocks);
       } catch (err) {
         console.error(err);
-        setError("Não foi possível obter os dados de finanças. Tente novamente mais tarde.");
+        setError(
+          "Não foi possível obter os dados de finanças. Tente novamente mais tarde.",
+        );
       } finally {
         setLoading(false);
       }
@@ -60,15 +62,17 @@ export default function DashboardPage() {
       {!loading && !error && (
         <>
           <section className="text-xs md:text-base">
-            <h2 className="px-2 mb-4 text-base md:text-2xl font-semibold text-gray-800">Moedas</h2>
+            <h2 className="mb-4 px-2 text-base font-semibold text-gray-800 md:text-2xl">
+              Moedas
+            </h2>
             <div className="overflow-x-auto">
               <table className="w-full table-fixed border-collapse">
                 <thead>
                   <tr className="border-b">
-                    <th className="px-4 py-2 text-left w-1/4">Nome</th>
-                    <th className="px-4 py-2 text-left w-1/4">Compra</th>
-                    <th className="px-4 py-2 text-left w-1/4">Venda</th>
-                    <th className="px-4 py-2 text-left w-1/4">Variação (%)</th>
+                    <th className="w-1/4 px-4 py-2 text-left">Nome</th>
+                    <th className="w-1/4 px-4 py-2 text-left">Compra</th>
+                    <th className="w-1/4 px-4 py-2 text-left">Venda</th>
+                    <th className="w-1/4 px-4 py-2 text-left">Variação (%)</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -78,8 +82,11 @@ export default function DashboardPage() {
                       <td className="px-4 py-2">{currency.buy?.toFixed(2)}</td>
                       <td className="px-4 py-2">{currency.sell?.toFixed(2)}</td>
                       <td
-                        className={`px-4 py-2 ${currency.variation > 0 ? "text-green-600" : "text-red-600"
-                          }`}
+                        className={`px-4 py-2 ${
+                          currency.variation > 0
+                            ? "text-green-600"
+                            : "text-red-600"
+                        }`}
                       >
                         {currency.variation || 0}%
                       </td>
@@ -90,15 +97,17 @@ export default function DashboardPage() {
             </div>
           </section>
           <section className="text-xs md:text-base">
-            <h2 className="mb-4 px-2 text-base md:text-2xl font-semibold text-gray-800">Ações / Índices</h2>
+            <h2 className="mb-4 px-2 text-base font-semibold text-gray-800 md:text-2xl">
+              Ações / Índices
+            </h2>
             <div className="overflow-x-auto">
               <table className="w-full table-fixed border-collapse">
                 <thead>
                   <tr className="border-b">
-                    <th className="px-4 py-2 text-left w-1/4">Nome</th>
-                    <th className="px-4 py-2 text-left w-1/4 ">Local</th>
-                    <th className="px-4 py-2 text-left w-1/4">Pontos</th>
-                    <th className="px-4 py-2 text-left w-1/4">Variação (%)</th>
+                    <th className="w-1/4 px-4 py-2 text-left">Nome</th>
+                    <th className="w-1/4 px-4 py-2 text-left">Local</th>
+                    <th className="w-1/4 px-4 py-2 text-left">Pontos</th>
+                    <th className="w-1/4 px-4 py-2 text-left">Variação (%)</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -108,8 +117,11 @@ export default function DashboardPage() {
                       <td className="px-4 py-2">{stock.location ?? "-"}</td>
                       <td className="px-4 py-2">{stock.points ?? "-"}</td>
                       <td
-                        className={`px-4 py-2 ${(stock.variation ?? 0) > 0 ? "text-green-600" : "text-red-600"
-                          }`}
+                        className={`px-4 py-2 ${
+                          (stock.variation ?? 0) > 0
+                            ? "text-green-600"
+                            : "text-red-600"
+                        }`}
                       >
                         {stock.variation ?? 0}%
                       </td>

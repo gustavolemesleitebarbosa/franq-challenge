@@ -5,7 +5,7 @@ import { Client, Account } from "appwrite";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -24,7 +24,10 @@ const registerFormSchema = z
     phone: z
       .string()
       .min(8, "O telefone deve ter no mínimo 8 dígitos.")
-      .regex(/^\+?\d+$/, "Número de telefone inválido. Inclua apenas dígitos ou um sinal +."),
+      .regex(
+        /^\+?\d+$/,
+        "Número de telefone inválido. Inclua apenas dígitos ou um sinal +.",
+      ),
     password: z
       .string()
       .regex(/[A-Z]/, "A senha deve conter pelo menos uma letra maiúscula.")
@@ -32,7 +35,7 @@ const registerFormSchema = z
       .min(8, "A senha deve conter pelo menos 8 caracteres."),
     confirmPassword: z.string(),
   })
-  .refine(data => data.password === data.confirmPassword, {
+  .refine((data) => data.password === data.confirmPassword, {
     message: "As senhas não coincidem.",
     path: ["confirmPassword"],
   });
@@ -61,12 +64,7 @@ export function RegisterForm() {
 
   const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
     try {
-      await account.create(
-        uuidv4(),
-        data.email,
-        data.password,
-        data.name,
-      );
+      await account.create(uuidv4(), data.email, data.password, data.name);
       alert("Registro realizado com sucesso!");
       router.push("/");
     } catch (error) {
@@ -149,4 +147,4 @@ export function RegisterForm() {
       </form>
     </Form>
   );
-} 
+}
