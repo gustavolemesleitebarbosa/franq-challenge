@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { useIsAuth } from "@/hooks/useIsAuth";
 import { account } from "@/lib/appwrite";
 import { Currency, FinanceAPIResponse, Stock } from "@/types/finance";
 import { useRouter } from "next/navigation";
@@ -11,6 +13,7 @@ export default function DashboardPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const { isLoadingUser } = useIsAuth();
 
   useEffect(() => {
     async function fetchFinanceData() {
@@ -68,15 +71,14 @@ export default function DashboardPage() {
 
   return (
     <div className="m-4 flex flex-col gap-8">
-      <h1 className="text-2xl font-bold">Dashboard Financeiro</h1>
-      {loading && <p>Carregando dados...</p>}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Dashboard Financeiro</h1>
         <Button onClick={handleLogout}>Sair</Button>
       </div>
+      {loading || isLoadingUser && <p>Carregando dados...</p>}
       {error && <p className="text-red-500">{error}</p>}
 
-      {!loading && !error && (
+      {!loading && !error && !isLoadingUser && (
         <>
           <section className="text-xs md:text-base">
             <h2 className="mb-4 px-2 text-base font-semibold text-gray-800 md:text-2xl">
@@ -99,11 +101,10 @@ export default function DashboardPage() {
                       <td className="px-4 py-2">{currency.buy?.toFixed(2)}</td>
                       <td className="px-4 py-2">{currency.sell?.toFixed(2)}</td>
                       <td
-                        className={`px-4 py-2 ${
-                          currency.variation > 0
-                            ? "text-green-600"
-                            : "text-red-600"
-                        }`}
+                        className={`px-4 py-2 ${currency.variation > 0
+                          ? "text-green-600"
+                          : "text-red-600"
+                          }`}
                       >
                         {currency.variation || 0}%
                       </td>
@@ -134,11 +135,10 @@ export default function DashboardPage() {
                       <td className="px-4 py-2">{stock.location ?? "-"}</td>
                       <td className="px-4 py-2">{stock.points ?? "-"}</td>
                       <td
-                        className={`px-4 py-2 ${
-                          (stock.variation ?? 0) > 0
-                            ? "text-green-600"
-                            : "text-red-600"
-                        }`}
+                        className={`px-4 py-2 ${(stock.variation ?? 0) > 0
+                          ? "text-green-600"
+                          : "text-red-600"
+                          }`}
                       >
                         {stock.variation ?? 0}%
                       </td>
