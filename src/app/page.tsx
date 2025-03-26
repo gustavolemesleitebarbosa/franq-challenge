@@ -1,19 +1,126 @@
-import Link from "next/link";
+"use client";
 
-export default function Home() {
+import { Currency, FinanceAPIResponse, Stock } from "@/types/finance";
+import { useEffect, useState } from "react";
+
+
+export default function DashboardPage() {
+  const [currencies, setCurrencies] = useState<Currency[]>([]);
+  const [stocks, setStocks] = useState<Stock[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchFinanceData() {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await fetch("/api/finance");
+        if (!response.ok) {
+          throw new Error(`Falha na requisição: ${response.status}`);
+        }
+        const data = await response.json() as FinanceAPIResponse;
+        const fetchedCurrencies = data?.results?.currencies ?? {};
+        const fetchedStocks = data?.results?.stocks ?? {};
+        const currencyEntries: [string, Currency][] = Object.entries(fetchedCurrencies)
+        const selectedCurrencies = currencyEntries?.slice(1, 6)
+          .map(([symbol, info]) => ({
+            name: `${symbol} (${info.name})`,
+            buy: info.buy,
+            sell: info.sell,
+            variation: info.variation,
+          }));
+
+        const stockEntries: Stock[] = Object.values(fetchedStocks)
+        const selectedStocks = stockEntries?.slice(0, 5)
+          .map((stock) => ({
+            name: stock.name,
+            location: stock.location,
+            points: stock.points,
+            variation: stock.variation,
+          }));
+        setCurrencies(selectedCurrencies);
+        setStocks(selectedStocks);
+      } catch (err) {
+        console.error(err);
+        setError("Não foi possível obter os dados de finanças. Tente novamente mais tarde.");
+      } finally {
+        setLoading(false);
+      }
+    }
+    void fetchFinanceData();
+  }, []);
+
   return (
-    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
-      <nav className="flex flex-col gap-4">
-        <Link className="text-blue-500" href="/item/1243">
-          Item
-        </Link>
-        <Link className="text-blue-500" href="/login">
-          Login
-        </Link>
-        <Link className="text-blue-500" href="/register">
-          Register
-        </Link>
-      </nav>{" "}
+    <div className="m-4 flex flex-col gap-8">
+      <h1 className="text-2xl font-bold">Dashboard Financeiro</h1>
+      {loading && <p>Carregando dados...</p>}
+      {error && <p className="text-red-500">{error}</p>}
+
+      {!loading && !error && (
+        <>
+          <section className="text-xs md:text-base">
+            <h2 className="px-2 mb-4 text-base md:text-2xl font-semibold text-gray-800">Moedas</h2>
+            <div className="overflow-x-auto">
+              <table className="w-full table-fixed border-collapse">
+                <thead>
+                  <tr className="border-b">
+                    <th className="px-4 py-2 text-left w-1/4">Nome</th>
+                    <th className="px-4 py-2 text-left w-1/4">Compra</th>
+                    <th className="px-4 py-2 text-left w-1/4">Venda</th>
+                    <th className="px-4 py-2 text-left w-1/4">Variação (%)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currencies.map((currency, index) => (
+                    <tr key={index} className="border-b">
+                      <td className="px-4 py-2">{currency.name}</td>
+                      <td className="px-4 py-2">{currency.buy?.toFixed(2)}</td>
+                      <td className="px-4 py-2">{currency.sell?.toFixed(2)}</td>
+                      <td
+                        className={`px-4 py-2 ${currency.variation > 0 ? "text-green-600" : "text-red-600"
+                          }`}
+                      >
+                        {currency.variation || 0}%
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+          <section className="text-xs md:text-base">
+            <h2 className="mb-4 px-2 text-base md:text-2xl font-semibold text-gray-800">Ações / Índices</h2>
+            <div className="overflow-x-auto">
+              <table className="w-full table-fixed border-collapse">
+                <thead>
+                  <tr className="border-b">
+                    <th className="px-4 py-2 text-left w-1/4">Nome</th>
+                    <th className="px-4 py-2 text-left w-1/4 ">Local</th>
+                    <th className="px-4 py-2 text-left w-1/4">Pontos</th>
+                    <th className="px-4 py-2 text-left w-1/4">Variação (%)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {stocks.map((stock, index) => (
+                    <tr key={index} className="border-b">
+                      <td className="px-4 py-2">{stock.name}</td>
+                      <td className="px-4 py-2">{stock.location ?? "-"}</td>
+                      <td className="px-4 py-2">{stock.points ?? "-"}</td>
+                      <td
+                        className={`px-4 py-2 ${(stock.variation ?? 0) > 0 ? "text-green-600" : "text-red-600"
+                          }`}
+                      >
+                        {stock.variation ?? 0}%
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </>
+      )}
     </div>
   );
 }
