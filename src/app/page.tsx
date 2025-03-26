@@ -1,6 +1,8 @@
 "use client";
 
+import { account } from "@/lib/appwrite";
 import { Currency, FinanceAPIResponse, Stock } from "@/types/finance";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
@@ -8,6 +10,7 @@ export default function DashboardPage() {
   const [stocks, setStocks] = useState<Stock[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchFinanceData() {
@@ -53,10 +56,24 @@ export default function DashboardPage() {
     void fetchFinanceData();
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await account.deleteSession("current");
+    } catch (error) {
+      console.error("Erro ao fazer logout:", error);
+    } finally {
+      router.push("/login");
+    }
+  };
+
   return (
     <div className="m-4 flex flex-col gap-8">
       <h1 className="text-2xl font-bold">Dashboard Financeiro</h1>
       {loading && <p>Carregando dados...</p>}
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold">Dashboard Financeiro</h1>
+        <Button onClick={handleLogout}>Sair</Button>
+      </div>
       {error && <p className="text-red-500">{error}</p>}
 
       {!loading && !error && (
