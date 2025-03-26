@@ -1,4 +1,4 @@
-import { FinanceAPIResponse } from "@/types/finance";
+import { type FinanceAPIResponse } from "@/types/finance";
 import { NextResponse } from "next/server";
 
 export async function GET() {

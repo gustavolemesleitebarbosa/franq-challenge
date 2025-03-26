@@ -21,8 +21,8 @@ export function useIsAuth() {
         router.push("/login");
       }
     }
-    loadUser();
-  }, []);
+    void loadUser();
+  }, [router]);
 
   return { isLoadingUser };
 }

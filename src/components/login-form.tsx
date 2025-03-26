@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
@@ -16,7 +16,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { account } from "@/lib/appwrite"; // Import the singleton
-
 
 const loginFormSchema = z.object({
   email: z.string().email("Por favor, insira um endereço de e-mail válido."),

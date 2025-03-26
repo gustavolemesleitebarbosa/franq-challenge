@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { z } from "zod";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { v4 as uuidv4 } from "uuid";
 import { Button } from "@/components/ui/button";
@@ -44,7 +44,6 @@ type RegisterFormValues = z.infer<typeof registerFormSchema>;
 
 export function RegisterForm() {
   const router = useRouter();
-
 
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerFormSchema),

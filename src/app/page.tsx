@@ -3,7 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { useIsAuth } from "@/hooks/useIsAuth";
 import { account } from "@/lib/appwrite";
-import { Currency, FinanceAPIResponse, Stock } from "@/types/finance";
+import {
+  type Currency,
+  type FinanceAPIResponse,
+  type Stock,
+} from "@/types/finance";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -75,7 +79,7 @@ export default function DashboardPage() {
         <h1 className="text-2xl font-bold">Dashboard Financeiro</h1>
         <Button onClick={handleLogout}>Sair</Button>
       </div>
-      {loading || isLoadingUser && <p>Carregando dados...</p>}
+      {loading || (isLoadingUser && <p>Carregando dados...</p>)}
       {error && <p className="text-red-500">{error}</p>}
 
       {!loading && !error && !isLoadingUser && (
@@ -101,10 +105,11 @@ export default function DashboardPage() {
                       <td className="px-4 py-2">{currency.buy?.toFixed(2)}</td>
                       <td className="px-4 py-2">{currency.sell?.toFixed(2)}</td>
                       <td
-                        className={`px-4 py-2 ${currency.variation > 0
-                          ? "text-green-600"
-                          : "text-red-600"
-                          }`}
+                        className={`px-4 py-2 ${
+                          currency.variation > 0
+                            ? "text-green-600"
+                            : "text-red-600"
+                        }`}
                       >
                         {currency.variation || 0}%
                       </td>
@@ -135,10 +140,11 @@ export default function DashboardPage() {
                       <td className="px-4 py-2">{stock.location ?? "-"}</td>
                       <td className="px-4 py-2">{stock.points ?? "-"}</td>
                       <td
-                        className={`px-4 py-2 ${(stock.variation ?? 0) > 0
-                          ? "text-green-600"
-                          : "text-red-600"
-                          }`}
+                        className={`px-4 py-2 ${
+                          (stock.variation ?? 0) > 0
+                            ? "text-green-600"
+                            : "text-red-600"
+                        }`}
                       >
                         {stock.variation ?? 0}%
                       </td>

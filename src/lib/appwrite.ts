@@ -10,8 +10,10 @@ export default client;
 export async function getCurrentUser() {
   try {
     return await account.get();
-  } catch (error: any) {
-    console.error("Error fetching user:", error.message);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error fetching user:", error.message);
+    }
     return null; // User session expired or not logged in
   }
 }
