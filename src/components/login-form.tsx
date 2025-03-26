@@ -4,7 +4,6 @@ import * as React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Client, Account } from "appwrite";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +15,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { account } from "@/lib/appwrite"; // Import the singleton
+
 
 const loginFormSchema = z.object({
   email: z.string().email("Por favor, insira um endereço de e-mail válido."),
@@ -30,12 +31,6 @@ type LoginFormValues = z.infer<typeof loginFormSchema>;
 
 export function LoginForm() {
   const router = useRouter();
-  const client = new Client()
-    .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT ?? "")
-    .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID ?? "");
-
-  const account = new Account(client);
-
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
