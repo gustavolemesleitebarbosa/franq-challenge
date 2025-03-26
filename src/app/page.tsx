@@ -75,15 +75,15 @@ export default function DashboardPage() {
 
   return (
     <div className="m-4 flex flex-col gap-8">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Dashboard Financeiro</h1>
-        <Button onClick={handleLogout}>Sair</Button>
-      </div>
       {loading || (isLoadingUser && <p>Carregando dados...</p>)}
       {error && <p className="text-red-500">{error}</p>}
 
       {!loading && !error && !isLoadingUser && (
         <>
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-bold">Dashboard Financeiro</h1>
+            <Button onClick={handleLogout}>Sair</Button>
+          </div>
           <section className="text-xs md:text-base">
             <h2 className="mb-4 px-2 text-base font-semibold text-gray-800 md:text-2xl">
               Moedas
