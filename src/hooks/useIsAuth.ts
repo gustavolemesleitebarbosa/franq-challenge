@@ -30,7 +30,7 @@ export function useIsAuth(skipLoginRedirect = false) {
     return () => {
       isMounted = false;
     };
-  }, [router]);
+  }, [router, skipLoginRedirect]);
 
   return { isLoadingUser };
 }
