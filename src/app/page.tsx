@@ -3,87 +3,14 @@
 import { Button } from "@/components/ui/button";
 import { useIsAuth } from "@/hooks/useIsAuth";
 import { account } from "@/lib/appwrite";
-import {
-  type Currency,
-  type FinanceAPIResponse,
-  type Stock,
-} from "@/types/finance";
+import { useFinanceStore } from "@/store/financeStore";
+import { CurrencyWithAcronym, StockWithAcronym } from "@/types/finance";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-
-type ResponseCache = {
-  [key: number]: {
-    data: FinanceAPIResponse;
-  };
-};
 
 export default function DashboardPage() {
-  const [currencies, setCurrencies] = useState<Currency[]>([]);
-  const [stocks, setStocks] = useState<Stock[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { isLoadingUser } = useIsAuth();
-  const responseCacheRef = useRef<ResponseCache[]>([]);
-
-  useEffect(() => {
-    async function fetchFinanceData() {
-      try {
-        setLoading(true);
-        setError(null);
-        const response = await fetch("/api/finance");
-        if (!response.ok) {
-          throw new Error(`Falha na requisição: ${response.status}`);
-        }
-        const data = (await response.json()) as FinanceAPIResponse;
-        responseCacheRef.current = [
-          ...responseCacheRef.current,
-          {
-            [Date.now()]: {
-              data,
-            },
-          },
-        ];
-        const fetchedCurrencies = data?.results?.currencies ?? {};
-        const fetchedStocks = data?.results?.stocks ?? {};
-        const currencyEntries: [string, Currency][] =
-          Object.entries(fetchedCurrencies);
-        const selectedCurrencies = currencyEntries
-          ?.slice(1, 6)
-          .map(([symbol, info]) => ({
-            name: `${symbol} (${info.name})`,
-            buy: info.buy,
-            sell: info.sell,
-            variation: info.variation,
-          }));
-
-        const stockEntries: Stock[] = Object.values(fetchedStocks);
-        const selectedStocks = stockEntries?.slice(0, 5).map((stock) => ({
-          name: stock.name,
-          location: stock.location,
-          points: stock.points,
-          variation: stock.variation,
-        }));
-        setCurrencies(selectedCurrencies);
-        setStocks(selectedStocks);
-      } catch (err) {
-        console.error(err);
-        setError(
-          "Não foi possível obter os dados de finanças. Tente novamente mais tarde.",
-        );
-      } finally {
-        setLoading(false);
-      }
-    }
-    void fetchFinanceData();
-    const intervalId = setInterval(
-      () => {
-        void fetchFinanceData();
-      },
-      10 * 60 * 10,
-    );
-    return () => clearInterval(intervalId);
-  }, []);
+  const { currencies, stocks, error, loading } = useFinanceStore();
 
   const handleLogout = async () => {
     try {
