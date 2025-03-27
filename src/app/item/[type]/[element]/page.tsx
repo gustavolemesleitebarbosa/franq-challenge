@@ -10,7 +10,6 @@ export default function ItemPage() {
   const { type, element } = useParams();
   const router = useRouter();
   const { responseHistory } = useFinanceStore();
-  console.log("responseHistory", responseHistory);
 
   return (
     <div className="flex h-screen w-full flex-col items-stretch justify-between px-2 font-[family-name:var(--font-geist-sans)]">
@@ -37,7 +36,7 @@ export default function ItemPage() {
           dataSet1={Object.values(responseHistory).map((item) => {
             const value =
               item?.results?.[type as keyof typeof item.results]?.[
-                element as string
+              element as string
               ];
             if (type === "stocks") {
               return (value as Stock)?.points;
