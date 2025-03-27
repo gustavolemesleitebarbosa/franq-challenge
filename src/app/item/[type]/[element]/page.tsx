@@ -10,24 +10,26 @@ export default function ItemPage() {
   const { type, element } = useParams();
   const router = useRouter();
   const { responseHistory } = useFinanceStore();
+  console.log("responseHistory", responseHistory);
 
   return (
-    <div className="flex h-screen w-full flex-col items-stretch justify-between px-8 font-[family-name:var(--font-geist-sans)]">
-      <div className="flex w-full flex-row items-stretch justify-between gap-4 px-8 pt-2">
-        <div className="m-auto">
-          <span className="text-xs md:text-base font-bold">{type === "stocks" ? "Ações:" : "Moeda: "}</span>
-          <span className="text-xs md:text-base font-bold">{element}</span>
-        </div>
+    <div className="flex h-screen w-full flex-col items-stretch justify-between px-2 font-[family-name:var(--font-geist-sans)]">
+      <div className="flex w-full flex-row items-stretch justify-end gap-4 px-2 mt-2 pt-2 md:px-8">
         <Button onClick={() => router.back()}>Voltar</Button>
       </div>
 
-      <div className="flex w-full flex-col items-stretch justify-between gap-4 px-8 pb-8">
+      <div className="mb-4 flex h-full w-full flex-col items-stretch justify-between gap-4 px-2 pb-6 md:px-8">
         <PriceChart
           labels={Object.values(responseHistory).map((item) =>
-            new Date(item.date).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })
+            new Date(item.date).toLocaleString("pt-BR", {
+              day: "2-digit",
+              month: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
           )}
-          firstLabel={type === "stocks" ? "Pontos" : "Compra"}
-          secondLabel={"Variação"}
+          title={type === "stocks" ? `Ações: ${element}` : `Moeda: ${element} `}
+          legendTitle={type === "stocks" ? "Pontos" : "Valor de Compra"}
           dataSet1={Object.values(responseHistory).map((item) => {
             const value =
               item?.results?.[type as keyof typeof item.results]?.[

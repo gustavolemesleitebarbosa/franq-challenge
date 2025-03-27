@@ -21,26 +21,29 @@ ChartJS.register(
   Legend,
 );
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top" as const,
-    },
-    title: {
-      display: true,
-      text: "Chart.js Line Chart",
-    },
-  },
-};
 
-export function PriceChart({ labels, dataSet1, title }: { labels: string[], dataSet1: number[], title: string }) {
+
+export function PriceChart({ labels, dataSet1, legendTitle, title }: { labels: string[], dataSet1: number[], legendTitle: string, title: string }) {
+
+  const options = {
+    maintainAspectRatio: false,
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top" as const,
+      },
+      title: {
+        display: true,
+        text: title,
+      },
+    },
+  };
 
   const data = {
     labels,
     datasets: [
       {
-        label: title,
+        label: legendTitle,
         data: dataSet1,
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
