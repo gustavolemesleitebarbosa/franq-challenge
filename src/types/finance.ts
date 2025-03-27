@@ -19,3 +19,6 @@ export type Stock = {
   points: number;
   variation: number;
 };
+
+export type CurrencyWithAcronym = Currency & { acronym: string };
+export type StockWithAcronym = Stock & { acronym: string };
