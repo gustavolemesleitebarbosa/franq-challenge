@@ -16,6 +16,7 @@ specifiers:
   '@typescript-eslint/parser': ^8.28.0
   appwrite: ^17.0.1
   autoprefixer: ^10.4.21
+  chart.js: ^4.4.8
   class-variance-authority: ^0.7.1
   clsx: ^2.1.1
   eslint: ^9.23.0
@@ -28,6 +29,7 @@ specifiers:
   prettier: ^3.5.3
   prettier-plugin-tailwindcss: ^0.6.11
   react: ^19.0.0
+  react-chartjs-2: ^5.3.0
   react-dom: ^19.0.0
   react-hook-form: ^7.54.2
   tailwind-merge: ^3.0.2
@@ -37,23 +39,27 @@ specifiers:
   typescript-eslint: ^8.28.0
   uuid: ^11.1.0
   zod: ^3.24.2
+  zustand: ^5.0.3
 
 dependencies:
   '@hookform/resolvers': 4.1.3_react-hook-form@7.54.2
   '@radix-ui/react-label': 2.1.2_xbentco4yhcq7bx74fuavtyp7y
   '@radix-ui/react-slot': 1.1.2_iy7m5vzlrcipgqb5ydfduqi32u
   appwrite: 17.0.1
+  chart.js: 4.4.8
   class-variance-authority: 0.7.1
   clsx: 2.1.1
   lucide-react: 0.484.0_react@19.0.0
   next: 15.2.4_upmzqgzhjrquwzo2dphtigtdgi
   react: 19.0.0
+  react-chartjs-2: 5.3.0_wvdtdb5sj47j5sjtyft5wkhbma
   react-dom: 19.0.0_react@19.0.0
   react-hook-form: 7.54.2_react@19.0.0
   tailwind-merge: 3.0.2
   tw-animate-css: 1.2.4
   uuid: 11.1.0
   zod: 3.24.2
+  zustand: 5.0.3_iy7m5vzlrcipgqb5ydfduqi32u
 
 devDependencies:
   '@commitlint/cli': 19.8.0_l3dd3hfmid6chjzbmiqgddk2u4
@@ -558,6 +564,10 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /@kurkle/color/0.3.4:
+    resolution: {integrity: sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w==}
+    dev: false
 
   /@next/env/15.2.4:
     resolution: {integrity: sha512-+SFtMgoiYP3WoSswuNmxJOCwi06TdWE733D+WPjpXIe4LXGULwEaofiiAy6kbS0+XjM5xF5n3lKuBwN2SnqD9g==}
@@ -1168,6 +1178,13 @@ packages:
     resolution: {integrity: sha512-zgVZuo2WcZgfUEmsn6eO3kINexW8RAE4maiQ8QNs8CtpPCSyMiYsULR3HQYkm3w8FIA3SberyMJMSldGsW+U3w==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
     dev: true
+
+  /chart.js/4.4.8:
+    resolution: {integrity: sha512-IkGZlVpXP+83QpMm4uxEiGqSI7jFizwVtF3+n5Pc3k7sMO+tkd0qxh2OzLhenM0K80xtmAONWGBn082EiBQSDA==}
+    engines: {pnpm: '>=8'}
+    dependencies:
+      '@kurkle/color': 0.3.4
+    dev: false
 
   /class-variance-authority/0.7.1:
     resolution: {integrity: sha512-Ka+9Trutv7G8M6WT6SeiRWz792K5qEqIGEGzXKhAE6xOWAY6pPH8U+9IY3oCMv6kqTmLsv7Xh/2w2RigkePMsg==}
@@ -2215,6 +2232,16 @@ packages:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: true
 
+  /react-chartjs-2/5.3.0_wvdtdb5sj47j5sjtyft5wkhbma:
+    resolution: {integrity: sha512-UfZZFnDsERI3c3CZGxzvNJd02SHjaSJ8kgW1djn65H1KK8rehwTjyrRKOG3VTMG8wtHZ5rgAO5oTHtHi9GCCmw==}
+    peerDependencies:
+      chart.js: ^4.1.1
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    dependencies:
+      chart.js: 4.4.8
+      react: 19.0.0
+    dev: false
+
   /react-dom/19.0.0_react@19.0.0:
     resolution: {integrity: sha512-4GV5sHFG0e/0AD4X+ySy6UJd3jVl1iNsNHdpad0qhABJ11twS3TTBnseqsKurKcsNqCEFeGL3uLpVChpIO3QfQ==}
     peerDependencies:
@@ -2555,4 +2582,26 @@ packages:
 
   /zod/3.24.2:
     resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
+    dev: false
+
+  /zustand/5.0.3_iy7m5vzlrcipgqb5ydfduqi32u:
+    resolution: {integrity: sha512-14fwWQtU3pH4dE0dOpdMiWjddcH+QzKIgk1cl8epwSE7yag43k/AD/m4L6+K7DytAOr9gGBe3/EXj9g7cdostg==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=18.0.0'
+      immer: '>=9.0.6'
+      react: '>=18.0.0'
+      use-sync-external-store: '>=1.2.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+      use-sync-external-store:
+        optional: true
+    dependencies:
+      '@types/react': 19.0.12
+      react: 19.0.0
     dev: false
