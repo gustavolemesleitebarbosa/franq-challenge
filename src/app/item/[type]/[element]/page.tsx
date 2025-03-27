@@ -10,7 +10,6 @@ export default function ItemPage() {
   const { type, element } = useParams();
   const router = useRouter();
   const { responseHistory } = useFinanceStore();
-
   return (
     <div className="flex h-screen w-full flex-col items-stretch justify-between px-2 font-[family-name:var(--font-geist-sans)]">
       <div className="mt-2 flex w-full flex-row items-stretch justify-end gap-4 px-2 pt-2 md:px-8">

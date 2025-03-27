@@ -29,11 +29,22 @@ export const useFinanceStore = create<FinanceStore>((set) => ({
   setError: (error) => set({ error }),
   setLoading: (loading) => set({ loading }),
   setResponseCache: (data) => {
-    set((state) => ({
-      responseHistory: [
-        ...state.responseHistory,
-        { ...data, date: new Date() },
-      ],
-    }));
+    set((state) =>
+      // If the responseHistory has more than 100 items, keep only every other response (roughly halving the list) so it doesn't grow indefinitely
+
+      state.responseHistory.length >= 100
+        ? {
+            responseHistory: [
+              ...state.responseHistory.filter((_, index) => index % 2 === 0),
+              { ...data, date: new Date() },
+            ],
+          }
+        : {
+            responseHistory: [
+              ...state.responseHistory,
+              { ...data, date: new Date() },
+            ],
+          },
+    );
   },
 }));
