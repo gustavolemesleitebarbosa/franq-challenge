@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { account } from "@/lib/appwrite";
+import { useIsAuth } from "@/hooks/useIsAuth";
 
 const registerFormSchema = z
   .object({
@@ -44,7 +45,7 @@ type RegisterFormValues = z.infer<typeof registerFormSchema>;
 
 export function RegisterForm() {
   const router = useRouter();
-
+  useIsAuth()
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerFormSchema),
     defaultValues: {

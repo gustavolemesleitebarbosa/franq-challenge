@@ -16,6 +16,7 @@ export function useIsAuth() {
           router.replace("/login");
         } else if (isMounted) {
           setIsLoadingUser(false);
+          router.replace("/");
         }
       } catch {
         if (isMounted) {

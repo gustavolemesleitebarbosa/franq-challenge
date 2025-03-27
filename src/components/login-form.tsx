@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { account } from "@/lib/appwrite"; // Import the singleton
+import { useIsAuth } from "@/hooks/useIsAuth";
 
 const loginFormSchema = z.object({
   email: z.string().email("Por favor, insira um endereço de e-mail válido."),
@@ -30,6 +31,7 @@ type LoginFormValues = z.infer<typeof loginFormSchema>;
 
 export function LoginForm() {
   const router = useRouter();
+  useIsAuth()
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
