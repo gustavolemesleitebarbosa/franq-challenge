@@ -5,23 +5,30 @@ import { getCurrentUser } from "@/lib/appwrite";
 export function useIsAuth() {
   const router = useRouter();
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+
   useEffect(() => {
+    let isMounted = true;
+
     async function loadUser() {
       try {
         const loggedInUser = await getCurrentUser();
-        if (!loggedInUser) {
-          router.push("/login");
-        } else {
+        if (!loggedInUser && isMounted) {
+          router.replace("/login");
+        } else if (isMounted) {
           setIsLoadingUser(false);
         }
-      } catch (error) {
-        if (error instanceof Error) {
-          console.error("Error fetching user:", error.message);
+      } catch {
+        if (isMounted) {
+          router.replace("/login");
         }
-        router.push("/login");
       }
     }
+
     void loadUser();
+
+    return () => {
+      isMounted = false;
+    };
   }, [router]);
 
   return { isLoadingUser };
