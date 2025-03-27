@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getCurrentUser } from "@/lib/appwrite";
 
-export function useIsAuth() {
+export function useIsAuth(skipLoginRedirect = false) {
   const router = useRouter();
   const [isLoadingUser, setIsLoadingUser] = useState(true);
 
@@ -12,14 +12,14 @@ export function useIsAuth() {
     async function loadUser() {
       try {
         const loggedInUser = await getCurrentUser();
-        if (!loggedInUser && isMounted) {
+        if (!loggedInUser && isMounted && !skipLoginRedirect) {
           router.replace("/login");
         } else if (isMounted) {
           setIsLoadingUser(false);
           router.replace("/");
         }
       } catch {
-        if (isMounted) {
+        if (isMounted && !skipLoginRedirect) {
           router.replace("/login");
         }
       }
