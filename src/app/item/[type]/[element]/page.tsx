@@ -3,7 +3,7 @@
 import { PriceChart } from "@/components/chart";
 import { Button } from "@/components/ui/button";
 import { useFinanceStore } from "@/store/financeStore";
-import { Currency, Stock } from "@/types/finance";
+import { type Currency, type Stock } from "@/types/finance";
 import { useParams, useRouter } from "next/navigation";
 
 export default function ItemPage() {
@@ -25,7 +25,10 @@ export default function ItemPage() {
         <PriceChart
           labels={Object.keys(responseHistory)}
           dataSet1={Object.values(responseHistory).map((item) => {
-            const value = item?.results?.[type as keyof typeof item.results]?.[element as string];
+            const value =
+              item?.results?.[type as keyof typeof item.results]?.[
+              element as string
+              ];
             if (type === "stocks") {
               return (value as Stock)?.points;
             }

@@ -1,5 +1,9 @@
 import { useFinanceStore } from "@/store/financeStore";
-import { Currency, FinanceAPIResponse, Stock } from "@/types/finance";
+import {
+  type Currency,
+  type FinanceAPIResponse,
+  type Stock,
+} from "@/types/finance";
 import { useEffect } from "react";
 
 export function useDataPooling() {

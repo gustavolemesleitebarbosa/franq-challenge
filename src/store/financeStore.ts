@@ -1,7 +1,7 @@
 import {
-  CurrencyWithAcronym,
-  FinanceAPIResponse,
-  StockWithAcronym,
+  type CurrencyWithAcronym,
+  type FinanceAPIResponse,
+  type StockWithAcronym,
 } from "@/types/finance";
 import { create } from "zustand";
 
