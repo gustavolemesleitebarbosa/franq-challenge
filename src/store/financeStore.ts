@@ -10,7 +10,7 @@ type FinanceStore = {
   stocks: StockWithAcronym[];
   error: string | null;
   loading: boolean;
-  responseHistory: FinanceAPIResponse[];
+  responseHistory: (FinanceAPIResponse & { date: Date })[];
   setCurrencies: (currencies: CurrencyWithAcronym[]) => void;
   setStocks: (stocks: StockWithAcronym[]) => void;
   setError: (error: string | null) => void;
@@ -30,7 +30,7 @@ export const useFinanceStore = create<FinanceStore>((set) => ({
   setLoading: (loading) => set({ loading }),
   setResponseCache: (data) => {
     set((state) => ({
-      responseHistory: [...state.responseHistory, data],
+      responseHistory: [...state.responseHistory, { ...data, date: new Date() }],
     }));
   },
 }));

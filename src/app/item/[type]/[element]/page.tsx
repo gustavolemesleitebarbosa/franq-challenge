@@ -14,16 +14,20 @@ export default function ItemPage() {
   return (
     <div className="flex h-screen w-full flex-col items-stretch justify-between px-8 font-[family-name:var(--font-geist-sans)]">
       <div className="flex w-full flex-row items-stretch justify-between gap-4 px-8 pt-2">
-        <div>
-          <span>{type}</span>
-          <span>{element}</span>
+        <div className="m-auto">
+          <span className="text-xs md:text-base font-bold">{type === "stocks" ? "Ações:" : "Moeda: "}</span>
+          <span className="text-xs md:text-base font-bold">{element}</span>
         </div>
         <Button onClick={() => router.back()}>Voltar</Button>
       </div>
 
       <div className="flex w-full flex-col items-stretch justify-between gap-4 px-8 pb-8">
         <PriceChart
-          labels={Object.keys(responseHistory)}
+          labels={Object.values(responseHistory).map((item) =>
+            new Date(item.date).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })
+          )}
+          firstLabel={type === "stocks" ? "Pontos" : "Compra"}
+          secondLabel={"Variação"}
           dataSet1={Object.values(responseHistory).map((item) => {
             const value =
               item?.results?.[type as keyof typeof item.results]?.[

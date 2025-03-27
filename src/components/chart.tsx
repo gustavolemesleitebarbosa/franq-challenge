@@ -34,31 +34,16 @@ export const options = {
   },
 };
 
-export function PriceChart({
-  labels,
-  dataSet1,
-  dataSet2,
-}: {
-  labels: string[];
-  dataSet1: number[];
-  dataSet2?: number[];
-}) {
-  console.log("labels", labels);
-  console.log("dataSet1", dataSet1);
+export function PriceChart({ labels, dataSet1, title }: { labels: string[], dataSet1: number[], title: string }) {
+
   const data = {
     labels,
     datasets: [
       {
-        label: "Dataset 1",
+        label: title,
         data: dataSet1,
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
-        label: "Dataset 2",
-        data: dataSet2,
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
     ],
   };
