@@ -4,7 +4,10 @@ import { Button } from "@/components/ui/button";
 import { useIsAuth } from "@/hooks/useIsAuth";
 import { account } from "@/lib/appwrite";
 import { useFinanceStore } from "@/store/financeStore";
-import { type CurrencyWithAcronym, type StockWithAcronym } from "@/types/finance";
+import {
+  type CurrencyWithAcronym,
+  type StockWithAcronym,
+} from "@/types/finance";
 import { useRouter } from "next/navigation";
 
 export default function DashboardPage() {
@@ -70,10 +73,11 @@ export default function DashboardPage() {
                         {currency.sell?.toFixed(5) ?? "-"}
                       </td>
                       <td
-                        className={`px-4 py-2 ${currency.variation > 0
+                        className={`px-4 py-2 ${
+                          currency.variation > 0
                             ? "text-green-600"
                             : "text-red-600"
-                          }`}
+                        }`}
                       >
                         {currency.variation || 0}%
                       </td>
@@ -108,10 +112,11 @@ export default function DashboardPage() {
                       <td className="px-4 py-2">{stock.location ?? "-"}</td>
                       <td className="px-4 py-2">{stock.points ?? "-"}</td>
                       <td
-                        className={`px-4 py-2 ${(stock.variation ?? "-") > 0
+                        className={`px-4 py-2 ${
+                          (stock.variation ?? "-") > 0
                             ? "text-green-600"
                             : "text-red-600"
-                          }`}
+                        }`}
                       >
                         {stock.variation ?? 0}%
                       </td>

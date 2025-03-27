@@ -21,10 +21,17 @@ ChartJS.register(
   Legend,
 );
 
-
-
-export function PriceChart({ labels, dataSet1, legendTitle, title }: { labels: string[], dataSet1: number[], legendTitle: string, title: string }) {
-
+export function PriceChart({
+  labels,
+  dataSet1,
+  legendTitle,
+  title,
+}: {
+  labels: string[];
+  dataSet1: number[];
+  legendTitle: string;
+  title: string;
+}) {
   const options = {
     maintainAspectRatio: false,
     responsive: true,

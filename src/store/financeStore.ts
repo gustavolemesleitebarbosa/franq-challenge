@@ -30,7 +30,10 @@ export const useFinanceStore = create<FinanceStore>((set) => ({
   setLoading: (loading) => set({ loading }),
   setResponseCache: (data) => {
     set((state) => ({
-      responseHistory: [...state.responseHistory, { ...data, date: new Date() }],
+      responseHistory: [
+        ...state.responseHistory,
+        { ...data, date: new Date() },
+      ],
     }));
   },
 }));

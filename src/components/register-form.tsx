@@ -45,7 +45,7 @@ type RegisterFormValues = z.infer<typeof registerFormSchema>;
 
 export function RegisterForm() {
   const router = useRouter();
-  useIsAuth(true)
+  useIsAuth(true);
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerFormSchema),
     defaultValues: {
