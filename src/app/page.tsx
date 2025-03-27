@@ -9,7 +9,13 @@ import {
   type Stock,
 } from "@/types/finance";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+type ResponseCache = {
+  [key: number]: {
+    data: FinanceAPIResponse;
+  };
+};
 
 export default function DashboardPage() {
   const [currencies, setCurrencies] = useState<Currency[]>([]);
@@ -18,6 +24,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { isLoadingUser } = useIsAuth();
+  const responseCacheRef = useRef<ResponseCache[]>([]);
 
   useEffect(() => {
     async function fetchFinanceData() {
@@ -29,6 +36,14 @@ export default function DashboardPage() {
           throw new Error(`Falha na requisição: ${response.status}`);
         }
         const data = (await response.json()) as FinanceAPIResponse;
+        responseCacheRef.current = [
+          ...responseCacheRef.current,
+          {
+            [Date.now()]: {
+              data,
+            },
+          },
+        ];
         const fetchedCurrencies = data?.results?.currencies ?? {};
         const fetchedStocks = data?.results?.stocks ?? {};
         const currencyEntries: [string, Currency][] =
@@ -61,6 +76,13 @@ export default function DashboardPage() {
       }
     }
     void fetchFinanceData();
+    const intervalId = setInterval(
+      () => {
+        void fetchFinanceData();
+      },
+      10 * 60 * 10,
+    );
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleLogout = async () => {
@@ -105,11 +127,10 @@ export default function DashboardPage() {
                       <td className="px-4 py-2">{currency.buy?.toFixed(2)}</td>
                       <td className="px-4 py-2">{currency.sell?.toFixed(2)}</td>
                       <td
-                        className={`px-4 py-2 ${
-                          currency.variation > 0
-                            ? "text-green-600"
-                            : "text-red-600"
-                        }`}
+                        className={`px-4 py-2 ${currency.variation > 0
+                          ? "text-green-600"
+                          : "text-red-600"
+                          }`}
                       >
                         {currency.variation || 0}%
                       </td>
@@ -140,11 +161,10 @@ export default function DashboardPage() {
                       <td className="px-4 py-2">{stock.location ?? "-"}</td>
                       <td className="px-4 py-2">{stock.points ?? "-"}</td>
                       <td
-                        className={`px-4 py-2 ${
-                          (stock.variation ?? 0) > 0
-                            ? "text-green-600"
-                            : "text-red-600"
-                        }`}
+                        className={`px-4 py-2 ${(stock.variation ?? 0) > 0
+                          ? "text-green-600"
+                          : "text-red-600"
+                          }`}
                       >
                         {stock.variation ?? 0}%
                       </td>
