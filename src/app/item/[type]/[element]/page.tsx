@@ -24,12 +24,8 @@ export default function ItemPage() {
   }
 
   return (
-    <div className="flex h-screen w-full flex-col items-stretch justify-between px-2 font-[family-name:var(--font-geist-sans)]">
-      <div className="mt-2 flex w-full flex-row items-stretch justify-end gap-4 px-2 pt-2 md:px-8">
-        <Button onClick={() => router.back()}>Voltar</Button>
-      </div>
-
-      <div className="mb-4 flex h-full w-full flex-col items-stretch justify-between gap-4 px-2 pb-6 md:px-8">
+    <div className="flex h-screen w-full flex-col-reverse items-stretch justify-between px-2 font-[family-name:var(--font-geist-sans)]">
+      <div className="mb-8 flex h-[90%] w-full items-stretch justify-between gap-4 px-2 md:px-8">
         <PriceChart
           labels={Object.values(responseHistory).map((item) =>
             new Date(item.date).toLocaleString("pt-BR", {
@@ -56,6 +52,9 @@ export default function ItemPage() {
             return (value as Currency)?.buy;
           })}
         />
+      </div>
+      <div className="mt-1 flex w-full flex-row items-stretch justify-end gap-4 px-2 pt-2 md:px-8">
+        <Button onClick={() => router.replace("/")}>Voltar</Button>
       </div>
     </div>
   );
