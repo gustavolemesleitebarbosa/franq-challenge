@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { account } from "@/lib/appwrite";
+import toast from "react-hot-toast";
 
 const registerFormSchema = z
   .object({
@@ -63,11 +64,12 @@ export function RegisterForm() {
       await account.create(uuidv4(), data.email, data.password, data.name);
       await account.createEmailPasswordSession(data.email, data.password);
       saveToLocalStorage(data); // Save to localStorage
-      alert("Registro realizado com sucesso!");
+      toast.success("Registro realizado com sucesso");
+
       router.push("/");
     } catch (error) {
       console.error("Registration failed:", error);
-      alert("Falha ao registrar. Verifique o console para detalhes.");
+      toast.error("Falha ao registrar. Verifique o console para detalhes.");
     }
   };
 

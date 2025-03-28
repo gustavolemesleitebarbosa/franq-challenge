@@ -15,7 +15,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { account } from "@/lib/appwrite"; // Import the singleton
+import { account } from "@/lib/appwrite";
+import toast from "react-hot-toast";
 
 const loginFormSchema = z.object({
   email: z.string().email("Por favor, insira um endereço de e-mail válido."),
@@ -41,11 +42,11 @@ export function LoginForm() {
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
     try {
       await account.createEmailPasswordSession(data.email, data.password);
-      alert("Sucesso. Seja bem-vindo!");
+      toast.success("Sucesso. Seja bem-vindo!");
       router.push("/");
     } catch (error) {
       console.error("Login failed:", error);
-      alert("Falha no login. Verifique os dados e tente novamente.");
+      toast.error("Falha no login. Verifique os dados e tente novamente.");
     }
   };
 

@@ -33,6 +33,7 @@ specifiers:
   react-chartjs-2: ^5.3.0
   react-dom: ^19.0.0
   react-hook-form: ^7.54.2
+  react-hot-toast: ^2.5.2
   react-spinners: ^0.15.0
   tailwind-merge: ^3.0.2
   tailwindcss: ^4
@@ -58,6 +59,7 @@ dependencies:
   react-chartjs-2: 5.3.0_wvdtdb5sj47j5sjtyft5wkhbma
   react-dom: 19.0.0_react@19.0.0
   react-hook-form: 7.54.2_react@19.0.0
+  react-hot-toast: 2.5.2_upmzqgzhjrquwzo2dphtigtdgi
   react-spinners: 0.15.0_upmzqgzhjrquwzo2dphtigtdgi
   tailwind-merge: 3.0.2
   tw-animate-css: 1.2.4
@@ -1226,6 +1228,7 @@ packages:
 
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
+    requiresBuild: true
 
   /color-string/1.9.1:
     resolution: {integrity: sha512-shrVawQFojnZv6xM40anx4CkoDP+fZsw/ZerEMsW/pyzsRbElpsL/DBVW7q3ExxwusdNXI3lXpuhEZkzs8p5Eg==}
@@ -1644,6 +1647,14 @@ packages:
     resolution: {integrity: sha512-iInW14XItCXET01CQFqudPOWP2jYMl7T+QRQT+UNcR/iQncN/F0UNpgd76iFkBPgNQb4+X3LV9tLJYzwh+Gl3A==}
     engines: {node: '>=18'}
     dev: true
+
+  /goober/2.1.16_csstype@3.1.3:
+    resolution: {integrity: sha512-erjk19y1U33+XAMe1VTvIONHYoSqE4iS7BYUZfHaqeohLmnC0FdxEh7rQU+6MZ4OajItzjZFSRtVANrQwNq6/g==}
+    peerDependencies:
+      csstype: ^3.0.10
+    dependencies:
+      csstype: 3.1.3
+    dev: false
 
   /graceful-fs/4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
@@ -2325,6 +2336,19 @@ packages:
       react: ^16.8.0 || ^17 || ^18 || ^19
     dependencies:
       react: 19.0.0
+    dev: false
+
+  /react-hot-toast/2.5.2_upmzqgzhjrquwzo2dphtigtdgi:
+    resolution: {integrity: sha512-Tun3BbCxzmXXM7C+NI4qiv6lT0uwGh4oAfeJyNOjYUejTsm35mK9iCaYLGv8cBz9L5YxZLx/2ii7zsIwPtPUdw==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      csstype: 3.1.3
+      goober: 2.1.16_csstype@3.1.3
+      react: 19.0.0
+      react-dom: 19.0.0_react@19.0.0
     dev: false
 
   /react-spinners/0.15.0_upmzqgzhjrquwzo2dphtigtdgi:

@@ -9,7 +9,7 @@ export default function LoginPage() {
   return (
     <div className="bg-background flex min-h-svh flex-col items-center justify-center gap-5 p-6 md:p-10">
       <div className="w-full max-w-sm">
-        <div className="flex justify-center mb-3 max-h-12">
+        <div className="mb-3 flex max-h-12 justify-center">
           <Image
             priority
             layout="intrinsic"
