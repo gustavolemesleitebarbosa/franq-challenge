@@ -36,7 +36,7 @@ export function useIsAuth(isAuthRoute: boolean) {
       }
     }
 
-    verifyAuth();
+    void verifyAuth();
   }, [isAuthRoute, router]);
 
   return { isLoadingUser, isAuthenticated };
