@@ -15,6 +15,10 @@ export default function ItemPage() {
   const { responseHistory } = useFinanceStore();
   const { isAuthenticated } = useIsAuth(true);
 
+  useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, []);
+
   if (!isAuthenticated) {
     return (
       <div className="flex h-screen w-full flex-col items-center justify-center">
@@ -23,10 +27,6 @@ export default function ItemPage() {
       </div>
     );
   }
-
-  useEffect(() => {
-    window.scrollTo(0, document.body.scrollHeight);
-  }, []);
 
   return (
     <div className="flex h-screen w-full flex-col-reverse items-stretch justify-between px-2 font-[family-name:var(--font-geist-sans)]">
