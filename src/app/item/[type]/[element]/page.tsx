@@ -1,6 +1,6 @@
 "use client";
 
-import { PriceChart } from "@/components/chart";
+import { PriceChart } from "@/components/priceChart";
 import { Button } from "@/components/ui/button";
 import { useIsAuth } from "@/hooks/useIsAuth";
 import { useFinanceStore } from "@/store/financeStore";
