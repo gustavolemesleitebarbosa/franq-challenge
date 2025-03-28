@@ -12,6 +12,7 @@ export default function LoginPage() {
         <div className="mb-4 flex items-center justify-center">
           <Image
             priority
+            layout="intrinsic"
             src="/assets/logo.png"
             height={129}
             width={129}
