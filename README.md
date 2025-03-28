@@ -145,6 +145,18 @@ Este projeto é uma aplicação construída em **Next.js** que fornece um **dash
   - Hooks customizados (useDataPooling) para request periódico
   - Next.js API Routes (em `src/app/api/finance/route.ts`) para buscar dados.
 
+## Testes
+
+- Esse projeto inclui alguns testes iniciais e setup usando a biblioteca de testes React Testing Library
+- Para rodar os testes utilize:
+  ```bash
+  pnpm test
+  # ou
+  npm run test
+  # ou
+  yarn test
+  ```
+
 ## Contribuindo
 
 - Envie Pull Requests ou abra issues com melhorias.
@@ -298,7 +310,19 @@ This project is a **Next.js** application that provides a **financial dashboard*
 - State management and API calls:
   - **Zustand** (financial data)
   - Custom hooks (useDataPooling) for periodic requests
-  - Next.js API Routes (`src/app/api/finance/route.ts`) to fetch data.
+  - Next.js API Routes (`src/app/api/finance/route.ts`) to fetch data.\
+
+## Testing
+
+- This project includes some tests and the initial setup using React Testing library.
+- To run the tests use:
+  ```bash
+  pnpm test
+  # ou
+  npm run test
+  # ou
+  yarn test
+  ```
 
 ## Contributing
 
