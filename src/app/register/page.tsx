@@ -9,7 +9,7 @@ export default function RegisterPage() {
   return (
     <div className="flex h-screen w-full items-center justify-center font-[family-name:var(--font-geist-sans)]">
       <div className="w-full max-w-sm p-4">
-        <div className="mb-4 flex items-center justify-center">
+        <div className="mb-3 flex max-h-12 justify-center">
           <Image
             priority
             src="/assets/logo.png"
