@@ -15,7 +15,11 @@ export default function DashboardPage() {
   const router = useRouter();
   const { isAuthenticated } = useIsAuth(true);
   const { currencies, stocks, error } = useFinanceStore();
-  const userName = localStorage.getItem("name");
+
+  let userName = "";
+  if (typeof window !== "undefined") {
+    userName = localStorage.getItem("name") ?? "";
+  }
 
   const handleLogout = async () => {
     try {
@@ -23,7 +27,9 @@ export default function DashboardPage() {
     } catch (error) {
       console.error("Erro ao fazer logout:", error);
     } finally {
-      localStorage.clear();
+      if (typeof window !== "undefined") {
+        localStorage.clear();
+      }
       router.push("/login");
     }
   };
