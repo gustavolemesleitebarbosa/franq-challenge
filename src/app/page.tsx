@@ -15,10 +15,13 @@ export default function DashboardPage() {
   const router = useRouter();
   const { isAuthenticated } = useIsAuth(true);
   const { currencies, stocks, error } = useFinanceStore();
+  const userName = localStorage.getItem("name");
 
   const handleLogout = async () => {
     try {
       await account.deleteSession("current");
+      localStorage.removeItem("name");
+      localStorage.removeItem("email");
     } catch (error) {
       console.error("Erro ao fazer logout:", error);
     } finally {
@@ -52,7 +55,9 @@ export default function DashboardPage() {
       {!error && (
         <>
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold">Dashboard Financeiro</h1>
+            <div className="flex items-start gap-2 flex-col">
+              <h1 className="text-lg md:text-2xl font-bold">{`Olá ${userName}, Bem vindo ao Dashboard Financeiro`}</h1>
+            </div>
             <Button onClick={handleLogout}>Sair</Button>
           </div>
           <section className="text-xs md:text-base">
@@ -74,11 +79,10 @@ export default function DashboardPage() {
                     <tr
                       onClick={() => handleCurrencySelection(currency)}
                       key={index}
-                      className={`border-b hover:cursor-pointer ${
-                        currency.variation > 0
-                          ? "text-green-600"
-                          : "text-red-600"
-                      }`}
+                      className={`border-b hover:cursor-pointer ${currency.variation > 0
+                        ? "text-green-600"
+                        : "text-red-600"
+                        }`}
                     >
                       <td className="px-4 py-2">{currency.name}</td>
                       <td className="px-4 py-2">
@@ -115,9 +119,8 @@ export default function DashboardPage() {
                     <tr
                       onClick={() => handleStockSelection(stock)}
                       key={index}
-                      className={`border-b hover:cursor-pointer ${
-                        stock.variation > 0 ? "text-green-600" : "text-red-600"
-                      }`}
+                      className={`border-b hover:cursor-pointer ${stock.variation > 0 ? "text-green-600" : "text-red-600"
+                        }`}
                     >
                       <td className="px-4 py-2">{stock.name}</td>
                       <td className="px-4 py-2">{stock.location ?? "-"}</td>

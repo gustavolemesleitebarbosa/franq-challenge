@@ -53,10 +53,17 @@ export function RegisterForm() {
     },
   });
 
+  // Persist user data to localStorage
+  const saveToLocalStorage = (data: RegisterFormValues) => {
+    localStorage.setItem("name", data.name);
+    localStorage.setItem("email", data.email);
+  };
+
   const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
     try {
       await account.create(uuidv4(), data.email, data.password, data.name);
       await account.createEmailPasswordSession(data.email, data.password);
+      saveToLocalStorage(data); // Save to localStorage
       alert("Registro realizado com sucesso!");
       router.push("/");
     } catch (error) {

@@ -16,6 +16,15 @@ export function useIsAuth(isAuthRoute: boolean) {
         const user = await getCurrentUser();
         const isAuthenticated = !!user;
 
+        if (isAuthenticated) {
+          if (!localStorage.getItem("name") && user.name) {
+            localStorage.setItem("name", user.name);
+          }
+          if (!localStorage.getItem("email") && user.email) {
+            localStorage.setItem("email", user.email);
+          }
+        }
+
         if (isAuthRoute && !isAuthenticated) {
           router.replace("/login");
         } else if (!isAuthRoute && isAuthenticated) {
