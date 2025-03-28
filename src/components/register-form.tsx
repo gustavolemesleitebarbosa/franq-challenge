@@ -58,6 +58,7 @@ export function RegisterForm() {
   const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
     try {
       await account.create(uuidv4(), data.email, data.password, data.name);
+      await account.createEmailPasswordSession(data.email, data.password);
       alert("Registro realizado com sucesso!");
       router.push("/");
     } catch (error) {
