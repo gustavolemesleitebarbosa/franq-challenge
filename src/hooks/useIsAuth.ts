@@ -16,7 +16,7 @@ export function useIsAuth(isAuthRoute: boolean) {
       const now = new Date();
       const diffMinutes = (now.getTime() - sessionLogIn.getTime()) / 1000 / 60;
 
-      if (diffMinutes > 2) {
+      if (diffMinutes > 120) {
         await account.deleteSession("current");
         localStorage.clear();
         router.replace("/login");
