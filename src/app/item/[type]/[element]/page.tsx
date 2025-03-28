@@ -6,6 +6,7 @@ import { useIsAuth } from "@/hooks/useIsAuth";
 import { useFinanceStore } from "@/store/financeStore";
 import { type Currency, type Stock } from "@/types/finance";
 import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { BounceLoader } from "react-spinners";
 
 export default function ItemPage() {
@@ -22,6 +23,10 @@ export default function ItemPage() {
       </div>
     );
   }
+
+  useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, []);
 
   return (
     <div className="flex h-screen w-full flex-col-reverse items-stretch justify-between px-2 font-[family-name:var(--font-geist-sans)]">
