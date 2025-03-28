@@ -12,18 +12,28 @@ export function useIsAuth(isAuthRoute: boolean) {
 
   useEffect(() => {
     async function verifyAuth() {
-      const user = await getCurrentUser();
-      const isAuthenticated = !!user;
+      try {
+        const user = await getCurrentUser();
+        const isAuthenticated = !!user;
 
-      if (isAuthRoute && !isAuthenticated) {
-        router.replace("/login"); // Redirect if user is not authenticated
-      } else if (!isAuthRoute && isAuthenticated) {
-        router.replace("/"); // Redirect if user is authenticated but on a public page
+        if (isAuthRoute && !isAuthenticated) {
+          router.replace("/login");
+        } else if (!isAuthRoute && isAuthenticated) {
+          router.replace("/");
+        }
+
+        setIsAuthenticated(isAuthenticated);
+      } catch (error) {
+        console.error("Authentication check failed:", error);
+
+        if (isAuthRoute) {
+          router.replace("/login");
+        }
+
+        setIsAuthenticated(false);
+      } finally {
+        setIsLoadingUser(false);
       }
-
-      setIsAuthenticated(isAuthenticated);
-
-      setIsLoadingUser(false);
     }
 
     verifyAuth();
