@@ -56,7 +56,7 @@ export default function DashboardPage() {
         <>
           <div className="flex items-center justify-between">
             <div className="flex items-start gap-2 flex-col">
-              <h1 className="text-lg md:text-2xl font-bold">{`Olá ${userName}, Bem vindo ao Dashboard Financeiro`}</h1>
+              <h1 className="text-base md:text-2xl font-bold">{`Olá ${userName}, Bem vindo ao Dashboard Financeiro`}</h1>
             </div>
             <Button onClick={handleLogout}>Sair</Button>
           </div>
