@@ -16,10 +16,15 @@ Este projeto é uma aplicação construída em **Next.js** que fornece um **dash
 
    - Exibição das principais moedas e suas respectivas cotações (compra, venda e variação).
    - Exibição de ações e índices com respectivos pontos e variação.
-   - Atualização periódica automática dos dados (Pooling) a cada 10 minutos.
+   - Atualização periódica automática dos dados (Pooling) a cada 10 segundos.
 
 3. **Evolução de Preços em Gráfico**
+
    - Ao clicar em uma moeda ou ação, o usuário é direcionado para uma rota detalhada que exibe a evolução das cotações ao longo do tempo em um gráfico.
+
+4. **Persistência do usuário em local storage e expiração de sessão**
+   - Os dados do usuário (nome e email) são persistidos no localstorage durante a sessão
+   - A aplicação salva o momento de entrada do usuário (em localstorage) e após duas horas o desconecta da aplicação quando este tenta navegar novamente.
 
 ## Estrutura de Pastas
 
@@ -57,7 +62,6 @@ Este projeto é uma aplicação construída em **Next.js** que fornece um **dash
 ## Requisitos
 
 - Node.js 18 ou superior.
-- Chave de API válida da [HG Brasil (Finance)](https://hgbrasil.com/status/finance/).
 - Conta no [Appwrite](https://appwrite.io/) (opcional, mas o código está configurado para usar Appwrite como backend de autenticação).
 
 ## Configuração e Execução
@@ -166,7 +170,12 @@ This project is a **Next.js** application that provides a **financial dashboard*
 
    - Displays the main currencies and their respective rates (buy, sell, and variation).
    - Displays stocks and indices with respective points and variation.
-   - Periodic auto-refresh (Pooling) every 10 minutes.
+   - Periodic auto-refresh (Pooling) every 10 seconds.
+
+3. **User Persistence in Local Storage and Session Expiration**
+
+- The user's (name and email) are persisted in local storage during the session.
+- The application saves the user's login time (in local storage), and after two hours, it logs the user out when they try to navigate again.
 
 3. **Price Evolution Chart**
    - By clicking on a currency or stock, the user is directed to a detailed route that displays the price evolution chart over time.

@@ -69,7 +69,7 @@ export function useDataPooling() {
         void fetchFinanceData();
       },
       10 * 60 * 10,
-    ); // Fetch every 10 minutes
+    );
 
     return () => clearInterval(intervalId);
   }, [setCurrencies, setStocks, setError, setLoading, setResponseCache]);
