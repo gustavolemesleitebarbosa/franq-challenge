@@ -9,10 +9,12 @@ import {
   type StockWithAcronym,
 } from "@/types/finance";
 import { useRouter } from "next/navigation";
+import { BounceLoader } from "react-spinners";
+
 
 export default function DashboardPage() {
   const router = useRouter();
-  const { isLoadingUser } = useIsAuth();
+  const { isAuthenticated } = useIsAuth(true);
   const { currencies, stocks, error } = useFinanceStore();
 
   const handleLogout = async () => {
@@ -33,12 +35,20 @@ export default function DashboardPage() {
     router.push(`/item/currencies/${currency.acronym}`);
   };
 
+  if (!isAuthenticated) {
+    return <div className="flex h-screen w-full flex-col items-center justify-center">
+      <div className="mb-4">Carregando dados do usuário...</div>
+      <BounceLoader />
+    </div>;
+  }
+
   return (
     <div className="m-4 flex flex-col gap-8">
-      {isLoadingUser && <p>Carregando dados...</p>}
-      {error && <p className="text-red-500">{error}</p>}
+      <div className="flex h-full flex-col w-full items-center justify-center">
+        {error && <p className="text-red-500">{error}</p>}
+      </div>
 
-      {!error && !isLoadingUser && (
+      {!error && (
         <>
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold">Dashboard Financeiro</h1>
@@ -63,7 +73,9 @@ export default function DashboardPage() {
                     <tr
                       onClick={() => handleCurrencySelection(currency)}
                       key={index}
-                      className={`border-b hover:cursor-pointer ${currency.variation > 0 ? "text-green-600" : "text-red-600"
+                      className={`border-b hover:cursor-pointer ${currency.variation > 0
+                        ? "text-green-600"
+                        : "text-red-600"
                         }`}
                     >
                       <td className="px-4 py-2">{currency.name}</td>

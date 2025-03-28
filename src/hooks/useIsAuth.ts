@@ -1,36 +1,33 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getCurrentUser } from "@/lib/appwrite";
 
-export function useIsAuth(skipLoginRedirect = false) {
-  const router = useRouter();
+export function useIsAuth(isAuthRoute: boolean) {
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
-    let isMounted = true;
+    async function verifyAuth() {
+      const user = await getCurrentUser();
+      const isAuthenticated = !!user;
 
-    async function loadUser() {
-      try {
-        const loggedInUser = await getCurrentUser();
-        if (!loggedInUser && isMounted && !skipLoginRedirect) {
-          router.replace("/login");
-        } else if (isMounted) {
-          setIsLoadingUser(false);
-          router.replace("/");
-        }
-      } catch {
-        if (isMounted && !skipLoginRedirect) {
-          router.replace("/login");
-        }
+      if (isAuthRoute && !isAuthenticated) {
+        router.replace("/login"); // Redirect if user is not authenticated
+      } else if (!isAuthRoute && isAuthenticated) {
+        router.replace("/"); // Redirect if user is authenticated but on a public page
       }
+
+      setIsAuthenticated(isAuthenticated);
+
+      setIsLoadingUser(false);
     }
 
-    void loadUser();
+    verifyAuth();
+  }, [isAuthRoute, router]);
 
-    return () => {
-      isMounted = false;
-    };
-  }, [router, skipLoginRedirect]);
-
-  return { isLoadingUser };
+  return { isLoadingUser, isAuthenticated };
 }
