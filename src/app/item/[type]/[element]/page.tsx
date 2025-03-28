@@ -15,10 +15,12 @@ export default function ItemPage() {
   const { isAuthenticated } = useIsAuth(true);
 
   if (!isAuthenticated) {
-    return <div className="flex h-screen w-full flex-col items-center justify-center">
-      <div className="mb-4">Carregando dados do usuário...</div>
-      <BounceLoader />
-    </div>;
+    return (
+      <div className="flex h-screen w-full flex-col items-center justify-center">
+        <div className="mb-4">Carregando dados do usuário...</div>
+        <BounceLoader />
+      </div>
+    );
   }
 
   return (
@@ -46,7 +48,7 @@ export default function ItemPage() {
           dataSet1={Object.values(responseHistory).map((item) => {
             const value =
               item?.results?.[type as keyof typeof item.results]?.[
-              element as string
+                element as string
               ];
             if (type === "stocks") {
               return (value as Stock)?.points;

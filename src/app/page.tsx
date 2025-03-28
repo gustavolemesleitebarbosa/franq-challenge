@@ -11,7 +11,6 @@ import {
 import { useRouter } from "next/navigation";
 import { BounceLoader } from "react-spinners";
 
-
 export default function DashboardPage() {
   const router = useRouter();
   const { isAuthenticated } = useIsAuth(true);
@@ -36,15 +35,17 @@ export default function DashboardPage() {
   };
 
   if (!isAuthenticated) {
-    return <div className="flex h-screen w-full flex-col items-center justify-center">
-      <div className="mb-4">Carregando dados do usuário...</div>
-      <BounceLoader />
-    </div>;
+    return (
+      <div className="flex h-screen w-full flex-col items-center justify-center">
+        <div className="mb-4">Carregando dados do usuário...</div>
+        <BounceLoader />
+      </div>
+    );
   }
 
   return (
     <div className="m-4 flex flex-col gap-8">
-      <div className="flex h-full flex-col w-full items-center justify-center">
+      <div className="flex h-full w-full flex-col items-center justify-center">
         {error && <p className="text-red-500">{error}</p>}
       </div>
 
@@ -73,10 +74,11 @@ export default function DashboardPage() {
                     <tr
                       onClick={() => handleCurrencySelection(currency)}
                       key={index}
-                      className={`border-b hover:cursor-pointer ${currency.variation > 0
-                        ? "text-green-600"
-                        : "text-red-600"
-                        }`}
+                      className={`border-b hover:cursor-pointer ${
+                        currency.variation > 0
+                          ? "text-green-600"
+                          : "text-red-600"
+                      }`}
                     >
                       <td className="px-4 py-2">{currency.name}</td>
                       <td className="px-4 py-2">
@@ -113,8 +115,9 @@ export default function DashboardPage() {
                     <tr
                       onClick={() => handleStockSelection(stock)}
                       key={index}
-                      className={`border-b hover:cursor-pointer ${stock.variation > 0 ? "text-green-600" : "text-red-600"
-                        }`}
+                      className={`border-b hover:cursor-pointer ${
+                        stock.variation > 0 ? "text-green-600" : "text-red-600"
+                      }`}
                     >
                       <td className="px-4 py-2">{stock.name}</td>
                       <td className="px-4 py-2">{stock.location ?? "-"}</td>
