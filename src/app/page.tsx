@@ -63,7 +63,8 @@ export default function DashboardPage() {
                     <tr
                       onClick={() => handleCurrencySelection(currency)}
                       key={index}
-                      className="border-b hover:cursor-pointer"
+                      className={`border-b hover:cursor-pointer ${currency.variation > 0 ? "text-green-600" : "text-red-600"
+                        }`}
                     >
                       <td className="px-4 py-2">{currency.name}</td>
                       <td className="px-4 py-2">
@@ -72,13 +73,7 @@ export default function DashboardPage() {
                       <td className="px-4 py-2">
                         {currency.sell?.toFixed(5) ?? "-"}
                       </td>
-                      <td
-                        className={`px-4 py-2 ${
-                          currency.variation > 0
-                            ? "text-green-600"
-                            : "text-red-600"
-                        }`}
-                      >
+                      <td className={"px-4 py-2"}>
                         {currency.variation || 0}%
                       </td>
                     </tr>
@@ -106,20 +101,13 @@ export default function DashboardPage() {
                     <tr
                       onClick={() => handleStockSelection(stock)}
                       key={index}
-                      className="border-b hover:cursor-pointer"
+                      className={`border-b hover:cursor-pointer ${stock.variation > 0 ? "text-green-600" : "text-red-600"
+                        }`}
                     >
                       <td className="px-4 py-2">{stock.name}</td>
                       <td className="px-4 py-2">{stock.location ?? "-"}</td>
                       <td className="px-4 py-2">{stock.points ?? "-"}</td>
-                      <td
-                        className={`px-4 py-2 ${
-                          (stock.variation ?? "-") > 0
-                            ? "text-green-600"
-                            : "text-red-600"
-                        }`}
-                      >
-                        {stock.variation ?? 0}%
-                      </td>
+                      <td className={"px-4 py-2"}>{stock.variation ?? 0}%</td>
                     </tr>
                   ))}
                 </tbody>
