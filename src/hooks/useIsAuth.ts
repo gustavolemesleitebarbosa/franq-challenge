@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { account, getCurrentUser } from "@/lib/appwrite";
 
@@ -10,9 +10,9 @@ export function useIsAuth(isAuthRoute: boolean) {
 
   const router = useRouter();
 
-  const handleSessionExpired = async () => {
+  const handleSessionExpired = useCallback(async () => {
     if (localStorage.getItem("sessionLogIn")) {
-      const sessionLogIn = new Date(localStorage.getItem("sessionLogIn")!); // Converte a string para Date
+      const sessionLogIn = new Date(localStorage.getItem("sessionLogIn")!);
       const now = new Date();
       const diffMinutes = (now.getTime() - sessionLogIn.getTime()) / 1000 / 60;
 
@@ -24,19 +24,22 @@ export function useIsAuth(isAuthRoute: boolean) {
       }
     }
     return false;
-  }
+  }, [router]);
 
-  const handleUserAuthenticated = async (user: { name: string, email: string }) => {
-    if (!localStorage.getItem("name") && user.name) {
-      localStorage.setItem("name", user.name);
-    }
-    if (!localStorage.getItem("email") && user.email) {
-      localStorage.setItem("email", user.email);
-    }
-    if (!localStorage.getItem("sessionLogIn")) {
-      localStorage.setItem("sessionLogIn", new Date().toISOString());
-    }
-  }
+  const handleUserAuthenticated = useCallback(
+    (user: { name: string; email: string }) => {
+      if (!localStorage.getItem("name") && user.name) {
+        localStorage.setItem("name", user.name);
+      }
+      if (!localStorage.getItem("email") && user.email) {
+        localStorage.setItem("email", user.email);
+      }
+      if (!localStorage.getItem("sessionLogIn")) {
+        localStorage.setItem("sessionLogIn", new Date().toISOString());
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     async function verifyAuth() {
@@ -69,7 +72,7 @@ export function useIsAuth(isAuthRoute: boolean) {
     }
 
     void verifyAuth();
-  }, [isAuthRoute, router]);
+  }, [isAuthRoute, router, handleSessionExpired, handleUserAuthenticated]);
 
   return { isLoadingUser, isAuthenticated };
 }

@@ -54,8 +54,8 @@ export default function DashboardPage() {
       {!error && (
         <>
           <div className="flex items-center justify-between">
-            <div className="flex items-start gap-2 flex-col">
-              <h1 className="text-base md:text-2xl font-bold">{`Olá ${userName}, Bem vindo ao Dashboard Financeiro`}</h1>
+            <div className="flex flex-col items-start gap-2">
+              <h1 className="text-base font-bold md:text-2xl">{`Olá ${userName}, Bem vindo ao Dashboard Financeiro`}</h1>
             </div>
             <Button onClick={handleLogout}>Sair</Button>
           </div>
@@ -78,10 +78,11 @@ export default function DashboardPage() {
                     <tr
                       onClick={() => handleCurrencySelection(currency)}
                       key={index}
-                      className={`border-b hover:cursor-pointer ${currency.variation > 0
-                        ? "text-green-600"
-                        : "text-red-600"
-                        }`}
+                      className={`border-b hover:cursor-pointer ${
+                        currency.variation > 0
+                          ? "text-green-600"
+                          : "text-red-600"
+                      }`}
                     >
                       <td className="px-4 py-2">{currency.name}</td>
                       <td className="px-4 py-2">
@@ -118,8 +119,9 @@ export default function DashboardPage() {
                     <tr
                       onClick={() => handleStockSelection(stock)}
                       key={index}
-                      className={`border-b hover:cursor-pointer ${stock.variation > 0 ? "text-green-600" : "text-red-600"
-                        }`}
+                      className={`border-b hover:cursor-pointer ${
+                        stock.variation > 0 ? "text-green-600" : "text-red-600"
+                      }`}
                     >
                       <td className="px-4 py-2">{stock.name}</td>
                       <td className="px-4 py-2">{stock.location ?? "-"}</td>

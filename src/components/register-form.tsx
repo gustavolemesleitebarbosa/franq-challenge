@@ -56,7 +56,7 @@ export function RegisterForm() {
     localStorage.setItem("name", data.name);
     localStorage.setItem("email", data.email);
     localStorage.setItem("sessionLogIn", new Date().toISOString());
-  }
+  };
 
   const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
     try {
