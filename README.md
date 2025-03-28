@@ -158,7 +158,7 @@ This project is a **Next.js** application that provides a **financial dashboard*
 
 1. **User Authentication**
 
-   - Account creation (registration) using name, email, phone, and password.
+   - Account creation (registration) using name, email, and password.
    - Login with email and password.
    - Route protection, redirecting unauthenticated users to the login page.
 

@@ -20,20 +20,19 @@ import { account } from "@/lib/appwrite";
 const registerFormSchema = z
   .object({
     name: z.string().min(1, "Por favor, insira um nome."),
-    email: z.string().email("Por favor, insira um endereço de e-mail válido."),
-    phone: z
+    email: z
       .string()
-      .min(8, "O telefone deve ter no mínimo 8 dígitos.")
-      .regex(
-        /^\+?\d+$/,
-        "Número de telefone inválido. Inclua apenas dígitos ou um sinal +.",
-      ),
+      .email("Por favor, insira um endereço de e-mail válido.")
+      .min(1, "Por favor, insira um endereço de e-mail."),
     password: z
       .string()
       .regex(/[A-Z]/, "A senha deve conter pelo menos uma letra maiúscula.")
       .regex(/[0-9]/, "A senha deve conter pelo menos um número.")
-      .min(8, "A senha deve conter pelo menos 8 caracteres."),
-    confirmPassword: z.string(),
+      .min(8, "A senha deve conter pelo menos 8 caracteres.")
+      .min(1, "Por favor, insira uma senha."),
+    confirmPassword: z
+      .string()
+      .min(1, "Por favor, confirme sua senha."),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "As senhas não coincidem.",
@@ -49,7 +48,6 @@ export function RegisterForm() {
     defaultValues: {
       name: "",
       email: "",
-      phone: "",
       password: "",
       confirmPassword: "",
     },
@@ -91,19 +89,6 @@ export function RegisterForm() {
               <FormLabel>E-mail</FormLabel>
               <FormControl>
                 <Input placeholder="usuario@example.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Telefone</FormLabel>
-              <FormControl>
-                <Input placeholder="+5511987654321" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
