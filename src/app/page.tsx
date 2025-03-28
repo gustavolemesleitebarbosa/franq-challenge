@@ -20,11 +20,10 @@ export default function DashboardPage() {
   const handleLogout = async () => {
     try {
       await account.deleteSession("current");
-      localStorage.removeItem("name");
-      localStorage.removeItem("email");
     } catch (error) {
       console.error("Erro ao fazer logout:", error);
     } finally {
+      localStorage.clear();
       router.push("/login");
     }
   };

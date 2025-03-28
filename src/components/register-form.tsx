@@ -30,9 +30,7 @@ const registerFormSchema = z
       .regex(/[0-9]/, "A senha deve conter pelo menos um número.")
       .min(8, "A senha deve conter pelo menos 8 caracteres.")
       .min(1, "Por favor, insira uma senha."),
-    confirmPassword: z
-      .string()
-      .min(1, "Por favor, confirme sua senha."),
+    confirmPassword: z.string().min(1, "Por favor, confirme sua senha."),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "As senhas não coincidem.",
@@ -57,7 +55,8 @@ export function RegisterForm() {
   const saveToLocalStorage = (data: RegisterFormValues) => {
     localStorage.setItem("name", data.name);
     localStorage.setItem("email", data.email);
-  };
+    localStorage.setItem("sessionLogIn", new Date().toISOString());
+  }
 
   const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
     try {
