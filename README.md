@@ -61,7 +61,7 @@ Este projeto é uma aplicação construída em **Next.js** que fornece um **dash
 
 ## Requisitos
 
-- Node.js 18 ou superior.
+- Node.js 18.18 ou superior (21.5.0 recomendado).
 - Conta no [Appwrite](https://appwrite.io/) (opcional, mas o código está configurado para usar Appwrite como backend de autenticação).
 
 ## Configuração e Execução
@@ -69,7 +69,7 @@ Este projeto é uma aplicação construída em **Next.js** que fornece um **dash
 1. **Clonar o repositório**
 
    ```bash
-   git clone https://github.com/SEU_USUARIO/franq-challenge.git
+   git clone git@github.com:gustavolemesleitebarbosa/franq-challenge.git
    cd franq-challenge
    ```
 
@@ -84,13 +84,21 @@ Este projeto é uma aplicação construída em **Next.js** que fornece um **dash
    ```
 
 3. **Configurar variáveis de ambiente**  
-   No arquivo `.env.local` (crie se não existir), defina:
+    No arquivo `.env` (crie se não existir), defina:
 
    ```
    NEXT_PUBLIC_APPWRITE_ENDPOINT="https://SEU_ENDPOINT.appwritecloud.com/v1"
    NEXT_PUBLIC_APPWRITE_PROJECT_ID="SEU_PROJECT_ID"
-   NEXT_PUBLIC_HG_API_KEY="SUA_CHAVE_HG_BRASIL"
+
    ```
+
+   ou apenas rode
+
+   ```
+   ➜   mv .env.example .env
+   ```
+
+   e defina as mesmas variáveis de ambiente
 
 4. **Rodar em modo de desenvolvimento**
 
@@ -227,7 +235,7 @@ This project is a **Next.js** application that provides a **financial dashboard*
 
 ## Requirements
 
-- Node.js 18 or higher.
+- Node.js 18.18 or higher (21.5.0) recommended.
 - A valid API key from [HG Brasil (Finance)](https://hgbrasil.com/status/finance/).
 - An account on [Appwrite](https://appwrite.io/) (optional, but the code is configured to use Appwrite for authentication).
 
@@ -236,7 +244,7 @@ This project is a **Next.js** application that provides a **financial dashboard*
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/YOUR_USERNAME/franq-challenge.git
+   git clone git@github.com:gustavolemesleitebarbosa/franq-challenge.git
    cd franq-challenge
    ```
 
@@ -251,13 +259,20 @@ This project is a **Next.js** application that provides a **financial dashboard*
    ```
 
 3. **Set environment variables**  
-   In a `.env.local` file (create if not existing), define:
+    In a `.env` file (create if not existing), define:
 
    ```
    NEXT_PUBLIC_APPWRITE_ENDPOINT="https://YOUR_ENDPOINT.appwritecloud.com/v1"
    NEXT_PUBLIC_APPWRITE_PROJECT_ID="YOUR_PROJECT_ID"
-   NEXT_PUBLIC_HG_API_KEY="YOUR_HG_BRASIL_API_KEY"
    ```
+
+   or just run
+
+   ```
+   ➜   mv .env.example .env
+   ```
+
+   and set the same environment variables
 
 4. **Run in development mode**
 
