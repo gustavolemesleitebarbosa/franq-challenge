@@ -56,6 +56,10 @@ Este projeto é uma aplicação construída em **Next.js** que fornece um **dash
 
   - **appwrite.ts** → Configuração do SDK do Appwrite.
 
+- **src/types/**
+
+  - **finance.ts** → Arquivo de tipos referenciando a resposta da API (HG Brasil) https://api.hgbrasil.com/finance.
+
 - **Tailwind & Config**
   - **tailwind.config.js** / **postcss.config.mjs** / **globals.css** → Configurações de estilização, Tailwind CSS e PostCSS.
 
@@ -165,6 +169,14 @@ Este projeto é uma aplicação construída em **Next.js** que fornece um **dash
   yarn test
   ```
 
+## Integração Contínua (CI), Commitlint e Hooks do Git
+
+- Este projeto possui um fluxo de Integração Contínua (CI) configurado em <code>.github/workflows/ci.yml</code>, que executa o lint do código e verificação de formatação.
+- Utilizamos o Commitlint (configurado em <code>commitlint.config.cjs</code>) para garantir que as mensagens de commit sigam o padrão das [Conventional Commits](https://www.conventionalcommits.org/).
+- Os hooks de Git são configurados via Husky, definidos dentro da pasta <code>.husky</code>. Em particular:
+  - O hook <code>commit-msg</code> roda o commitlint para validar mensagens de commit.
+  - O hook <code>pre-push</code> executa o ESLint (via <code>pnpm lint</code>) e garante a qualidade do código antes de enviar as alterações para o repositório remoto.
+
 ## Contribuindo
 
 - Envie Pull Requests ou abra issues com melhorias.
@@ -229,6 +241,10 @@ This project is a **Next.js** application that provides a **financial dashboard*
 - **src/lib/**
 
   - **appwrite.ts** → Appwrite SDK setup.
+
+- **src/types/**
+
+  - **finance.ts** → Type file referencing the API (HG Brasil) https://api.hgbrasil.com/finance?.
 
 - **Tailwind & Config**
   - **tailwind.config.js** / **postcss.config.mjs** / **globals.css** → Styling, Tailwind CSS, and PostCSS configurations.
@@ -325,19 +341,27 @@ This project is a **Next.js** application that provides a **financial dashboard*
 - State management and API calls:
   - **Zustand** (financial data)
   - Custom hooks (useDataPooling) for periodic requests
-  - Next.js API Routes (`src/app/api/finance/route.ts`) to fetch data.\
+  - Next.js API Routes (`src/app/api/finance/route.ts`) to fetch data.
 
 ## Testing
 
-- This project includes some tests and the initial setup using React Testing library.
+- This project includes some tests and the initial setup using React Testing Library.
 - To run the tests use:
   ```bash
   pnpm test
-  # ou
+  # or
   npm run test
-  # ou
+  # or
   yarn test
   ```
+
+## Continuous Integration (CI), Commitlint and Git Hooks
+
+- This project has a Continuous Integration (CI) pipeline defined at <code>.github/workflows/ci.yml</code>, which runs code linting and format checks.
+- We use Commitlint (configured in <code>commitlint.config.cjs</code>) to ensure commit messages follow [Conventional Commits](https://www.conventionalcommits.org/).
+- Git hooks are managed via Husky, stored in the <code>.husky</code> folder. Notably:
+  - The <code>commit-msg</code> hook runs commitlint to validate commit messages.
+  - The <code>pre-push</code> hook runs ESLint (via <code>pnpm lint</code>) to ensure code quality before changes are pushed to the remote repository.
 
 ## Contributing
 
